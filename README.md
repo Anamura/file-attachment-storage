@@ -1,8 +1,6 @@
 ## File Attachment Storage
 
-Хранилище файлов с доступом по http
-
-предоставляет REST API для загрузки (upload), скачивания (download) и удаления файлов.<br/>
+Сервис, предоставляющий REST API для загрузки (upload), скачивания (download) и удаления файлов.<br/>
 тип авторизации пользователей: **Basic**.<br/><br/>
 
 
@@ -25,15 +23,15 @@
         "hash": "564298b1cf9539b57f32737d7673f5bb"
       }
     
+    
       $ DELETE http://localhost:5000/api/files/delete/{hash} -H  "Authorization: Basic dGVzdDp0ZXN0"
       {
-        OK
+        200 OK
       }
+      
     
       $ curl -X GET "http://127.0.0.1:5000/api/files/download/{hash}" -H  "accept: application/json"
       {
         content-disposition: attachment; filename= 
-        content-length: 83871 
-        content-type: file
-        cache-control: public,max-age=43200
+        content-length: 83871
       }
