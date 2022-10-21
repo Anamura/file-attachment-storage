@@ -13,6 +13,7 @@ remote_path = 'store'
 async def upload(file_data, chunk_size=32768):
     path = os.path.join(remote_path, file_data.name)
     m = hashlib.md5()
+
     async with aiofiles.open(path, "wb") as f:
         while True:
             buf = await file_data.read_chunk(chunk_size)
@@ -49,3 +50,5 @@ async def download(file):
     if os.path.exists(path):
         async with aiofiles.open(path, 'rb') as f:
             return web.Response(headers={'Content-Type': 'multipart/form-data'}, body=await f.read())
+    else:
+        return web.json_response('no such file', status=404)

@@ -1,25 +1,13 @@
 from aiohttp.web_response import json_response
 import aiohttp_swagger
-from flask import session, redirect, render_template,  request
+from flask import redirect, render_template, session, request
 from aiohttp import web
 from storage import storage
 from logger import get_default_logger
-from flask_swagger_ui import get_swaggerui_blueprint
 
 user = {"username": "", "password": ""}
+
 logger = get_default_logger("WEB_APP")
-
-SWAGGER_URL = '/swagger'
-API_URL = '/static/swagger.yaml'
-
-swagger_ui_blueprint = get_swaggerui_blueprint(
-    SWAGGER_URL,
-    API_URL,
-    config={
-        'app_name': ''
-    }
-)
-# app.register_blueprint(swagger_ui_blueprint, url_prefix=SWAGGER_URL)
 
 
 def routes(application):
@@ -71,5 +59,5 @@ if __name__ == "__main__":
     # app.run()
     app = web.Application()
     routes(app)
-    aiohttp_swagger.setup_swagger(app, swagger_from_file='../../../../file-attachment-storage/static/swagger.yaml',  swagger_url="/api/docs")
+    aiohttp_swagger.setup_swagger(app, swagger_from_file='static/swagger.yaml',  swagger_url="/api/docs")
     web.run_app(app, host='127.0.0.1', port=5000)
