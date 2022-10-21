@@ -1,0 +1,81 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "File Attachment Storage"
+
+paths:
+  /api/files/upload:
+    post:
+      tags:
+      - ""
+      operationId: "uploadFile"
+      security:
+        - basicAuth: []
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "file"
+        in: "formData"
+        description: "file to upload"
+        required: false
+        type: "file"
+      responses:
+        "200":
+          description: "file uploaded successfully"
+          schema:
+            $ref: "#/definitions/UploadResponseData"
+        "400":
+          description: "Bad request."
+
+  /api/files/delete/{hash}:
+    delete:
+      tags:
+      - ""
+      operationId: "deleteFile"
+      security:
+        - basicAuth: []
+      produces:
+      - "application/json"
+      parameters:
+      - name: "hash"
+        in: "path"
+        description: "hash of file to delete"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: OK
+        "401":
+          description: "Authorization is missing or invalid."
+        "404":
+          description: "File with the specified hash was not found."
+
+  /api/files/download/{hash}:
+    get:
+      tags:
+      - ""
+      operationId: "downloadFile"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "hash"
+        in: "path"
+        description: "hash of file to download"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: "file"
+        "400":
+          description: "Bad request. Hash must be provided."
+securityDefinitions:
+  basicAuth:
+    type: "basic"
+definitions:
+  UploadResponseData:
+    type: "string"
+    example: "564298b1cf9539b57f32737d7673f5bb"

@@ -11,6 +11,7 @@
 /ab/ - подкаталог, состоящий из первых двух символов хэша файла.
 <br/><br/>
 
+http://127.0.0.1:5000/api/docs#!//uploadFile
 <img width="698" alt="swagger_docs" src="https://user-images.githubusercontent.com/5726929/196762845-23c52804-169f-4124-8f36-35620e9440d5.png">
 
 
