@@ -23,7 +23,6 @@ async def upload(file_data, chunk_size=32768):
             await f.write(buf)
 
     f_hash = m.hexdigest()
-    print(f_hash)
     logger.debug('Uploaded files to store.')
 
     os.makedirs(os.path.join(remote_path, f_hash[:2]), exist_ok=True)
