@@ -17,11 +17,18 @@ def routes(application):
 
 
 async def upload_file(request):
-    reader = await request.multipart()
-    file = await reader.next()
+    try:
+        auth_header = request.headers["Authorization"]
+        if auth_header:
+            logger.debug('Upload files to store.')
+            reader = await request.multipart()
+            file = await reader.next()
 
-    hash_f = await storage.upload(file)
-    return json_response({'hash': hash_f})
+            hash_f = await storage.upload(file)
+            return json_response({'hash': hash_f})
+    except KeyError:
+        response = {'code': 401, 'message': 'Authorization is missing or invalid.'}
+        return json_response(response, status=401)
 
 
 def delete(path):
@@ -59,5 +66,6 @@ if __name__ == "__main__":
     # app.run()
     app = web.Application()
     routes(app)
-    aiohttp_swagger.setup_swagger(app, swagger_from_file='static/swagger.yaml',  swagger_url="/api/docs")
+    aiohttp_swagger.setup_swagger(app, swagger_from_file='static/swagger.yaml',
+                                  swagger_url="/api/docs")
     web.run_app(app, host='127.0.0.1', port=5000)

@@ -49,6 +49,7 @@ async def download(file):
     path = os.path.join(remote_path, file[:2], file)
     if os.path.exists(path):
         async with aiofiles.open(path, 'rb') as f:
-            return web.Response(headers={'Content-Type': 'multipart/form-data'}, body=await f.read())
+            return web.Response(headers={'Content-Type': 'multipart/form-data'},
+                                body=await f.read())
     else:
         return web.json_response('no such file', status=404)
