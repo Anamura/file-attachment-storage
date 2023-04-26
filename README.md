@@ -16,23 +16,30 @@ http://127.0.0.1:5000/api/docs#!//uploadFile
 
 
 ### Usage
-
+JSONL format, timestamp in ascending order:
+```sh
       $ curl -X POST "http://127.0.0.1:5000/api/files/upload" -H  "Authorization: Basic dGVzdDp0ZXN0"
                                                               -H "Content-Type: multipart/form-data"
                                                               -F "file=@dog_1;type="
       {
         "hash": "564298b1cf9539b57f32737d7673f5bb"
       }
-    
-    
-      $ DELETE http://localhost:5000/api/files/delete/{hash} -H  "Authorization: Basic dGVzdDp0ZXN0"
+```
+
+   
+```sh
+       $ DELETE http://localhost:5000/api/files/delete/{hash} -H  "Authorization: Basic dGVzdDp0ZXN0"
       {
         200 OK
       }
-      
+```
     
+```sh
       $ curl -X GET "http://127.0.0.1:5000/api/files/download/{hash}" -H  "accept: application/json"
       {
         content-disposition: attachment; filename= 
         content-length: 83871
       }
+```   
+    
+
