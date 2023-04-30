@@ -1,6 +1,6 @@
 from aiohttp.web_response import json_response
 import aiohttp_swagger
-from flask import redirect, render_template, session, request
+from fastapi import FastAPI
 from aiohttp import web
 from storage import storage
 from logger import get_default_logger
